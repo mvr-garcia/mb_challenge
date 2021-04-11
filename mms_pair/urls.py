@@ -11,5 +11,6 @@ urlpatterns = [
     # Index page
     path('', views.index, name='index'),
     # API
-    path('api/v1/mms', viewsets.CoinListView.as_view())
+    path('api/v1/mms', viewsets.CoinListView.as_view()),
+    path(r'api/v1/<str:crypto>/mms/<int:past>/<int:now>', viewsets.CryptoListView.as_view()),
 ]
