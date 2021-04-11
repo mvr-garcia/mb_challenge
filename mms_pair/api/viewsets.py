@@ -16,6 +16,8 @@ class CryptoListView(generics.ListAPIView):
     def get_queryset(self):
         """This view should return a list of all the crypto in specific timestamp range."""
         pair = self.kwargs['crypto']
+
+
         past = self.kwargs['past']
 
         # If now timestamps aren't passed, now will be equal yesterday's timestamps

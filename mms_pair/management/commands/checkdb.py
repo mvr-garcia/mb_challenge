@@ -15,4 +15,4 @@ class Command(BaseCommand):
         else:
             update_coin()
 
-        return self.stdout.write(self.style.SUCCESS('Coin database successfully updated'))
+        return self.stdout.write(self.style.SUCCESS('\n- Coin database checked!'))

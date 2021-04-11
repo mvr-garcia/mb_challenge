@@ -56,25 +56,29 @@ def insert_data(past, now):
     for crypto in cryptos:
 
         candles = request_data(crypto, past, now)
-        daily_candles = candles["candles"]
 
-        for i, day in enumerate(daily_candles):
-            # We have to ignore the first 200 days of the loop. The 200 days will be used only
-            # for the purposes of calculating the 200 mms of the first day.
-            if i > 199:
-                try:
-                    coin = Coin()
-                    coin.timestamp = day['timestamp']
-                    coin.pair = crypto
-                    # Silicing items for simple movin average calculate
-                    coin.mms_20 = sma_calc(daily_candles[i-19:i + 1], 20)
-                    coin.mms_50 = sma_calc(daily_candles[i-49:i + 1], 50)
-                    coin.mms_200 = sma_calc(daily_candles[i-199:i + 1], 200)
-                    coin.save()
-                # Exception will be raise when a duplicate register try to save in DataBase
-                # We don't make anything, just don't save it.
-                except IntegrityError:
-                    pass
+        # If the API is unavailable candles will receive None.
+        # In this case, I do not need to proceed with data entry.
+        if candles is not None:
+            daily_candles = candles["candles"]
+
+            for i, day in enumerate(daily_candles):
+                # We have to ignore the first 200 days of the loop. The 200 days will be used only
+                # for the purposes of calculating the 200 mms of the first day.
+                if i > 199:
+                    try:
+                        coin = Coin()
+                        coin.timestamp = day['timestamp']
+                        coin.pair = crypto
+                        # Silicing items for simple movin average calculate
+                        coin.mms_20 = sma_calc(daily_candles[i-19:i + 1], 20)
+                        coin.mms_50 = sma_calc(daily_candles[i-49:i + 1], 50)
+                        coin.mms_200 = sma_calc(daily_candles[i-199:i + 1], 200)
+                        coin.save()
+                    # Exception will be raise when a duplicate register try to save in DataBase
+                    # We don't make anything, just don't save it.
+                    except IntegrityError:
+                        pass
 
 
 def request_data(coin, past, now):
@@ -82,10 +86,14 @@ def request_data(coin, past, now):
     Receive and treats BTC/ETH Candles data from Mercado Bitcoin Candles API
     """
     url = f'https://mobile.mercadobitcoin.com.br/v4/{coin}/candle?from={past}&to={now}&precision=1d'
-    response = requests.get(url)
-    candles = response.json()
-
-    return candles
+    try:
+        response = requests.get(url)
+    except requests.exceptions.RequestException:
+        print(f"\nThe Bitcoin Market candles API for {coin} crypto is not available to load/update the database.")
+        return None
+    else:
+        candles = response.json()
+        return candles
 
 
 def sma_calc(candle_list, period_qty):
