@@ -14,8 +14,7 @@ def load_coin():
     past = now - datetime.timedelta(days=365 + 200)
 
     # Convert date to timestamp
-    now = int(time.mktime(datetime.datetime.strptime(str(now), "%Y-%m-%d").timetuple()))
-    past = int(time.mktime(datetime.datetime.strptime(str(past), "%Y-%m-%d").timetuple()))
+    now, past = date2timestamps(now, past)
 
     return insert_data(past, now)
 
@@ -36,10 +35,16 @@ def update_coin():
     now = datetime.date.today() - datetime.timedelta(days=1)
 
     # Convert date to timestamp
-    now = int(time.mktime(datetime.datetime.strptime(str(now), "%Y-%m-%d").timetuple()))
-    past = int(time.mktime(datetime.datetime.strptime(str(past), "%Y-%m-%d").timetuple()))
+    now, past = date2timestamps(now, past)
 
     return insert_data(past, now)
+
+
+def date2timestamps(now, past):
+    """Convert date format "%Y-%m-%d" to timestamps"""
+    now = int(time.mktime(datetime.datetime.strptime(str(now), "%Y-%m-%d").timetuple()))
+    past = int(time.mktime(datetime.datetime.strptime(str(past), "%Y-%m-%d").timetuple()))
+    return now, past
 
 
 def insert_data(past, now):
