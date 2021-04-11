@@ -7,7 +7,8 @@ import time
 
 
 def load_coin():
-    """In case there is no data, the function loads data from the last 365 days."""
+    """Called by ready() function inside apps.py when server is sarted.
+    In case there is no data, the function loads data from the last 365 days."""
 
     # Set the date now = yesterday ; past = 365 days ago plus 200 days to permit calculate 200_sma
     now = datetime.date.today() - datetime.timedelta(days=1)
@@ -21,9 +22,13 @@ def load_coin():
 
 
 def update_coin():
-    """Every day will update the database for the last day candle not existing in register"""
+    """Called by ready() function inside apps.py when server is sarted.
+    Every day will update the database for the last day candle not existing in register."""
 
-    last_obj = Coin.objects.last()
+    # First it arranges the timestamp attribute in a descending way and
+    # takes the first item, this is the most recent day in the database.
+    last_obj = Coin.objects.all().order_by("-timestamp")[0]
+    print(last_obj.timestamp)
 
     # Convert timestamp to date and increment 200 days to allow sma200 calc.
     past = datetime.date.fromtimestamp(last_obj.timestamp)
@@ -82,7 +87,9 @@ def verify_db():
 
 def index(request):
     """"""
-    pair = Coin.objects.filter(pair="BRLBTC")
+    verify_db()
+
+    pair = Coin.objects.filter(pair="BRLBTC").order_by("-timestamp")
     context = {'pair': pair}
 
     return render(request, 'mms_pair/index.html', context)

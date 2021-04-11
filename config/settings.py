@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
 
+    # 3rd Apps
+    'rest_framework',
+    
     # My apps
     'mms_pair',
 ]
