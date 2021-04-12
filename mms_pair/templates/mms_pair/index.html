@@ -1,40 +1,39 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <title>Candles MB</title>
-</head>
-<body>
-    <table id="test_table" class="display table table-striped table-bordered" border="1" cellspacing="0" width="100%">
-    <thead>
-    <tr>
-        <th>Timestamp</th>
-        <th>Pair</th>
-        <th>sma_20</th>
-        <th>sma_50</th>
-        <th>sma_200</th>
-    </tr>
-    </thead>
-    <tbody>
+{% extends "mms_pair/base.html" %}
+
+{% block page_header %}
+
+    <div class="select">
+      <select class="form-control" id="locale">
+        <option value="btc">BRLBTC</option>
+        <option value="eth">BRLETH</option>
+      </select>
+    </div>
+    <div id="toolbar" class="mt-2 col-mb-12">
+        <button class="btn btn-primary" type="submit" name="submit">Filtrar consulta</button>
+    </div>
+    <div class="mt-2 col-mb-12">
+    </div>
+    <table class="table">
+      <thead class="thead-dark">
+        <tr>
+          <th scope="col">Timestamps</th>
+          <th scope="col">Cripto</th>
+          <th scope="col">MMS_20</th>
+          <th scope="col">MMS_50</th>
+          <th scope="col">MMS_200</th>
+        </tr>
+      </thead>
+      <tbody>
         {% for day in pair %}
         <tr>
-            <td>{{ day.timestamp }}</td>
-            <td>{{ day.pair }}</td>
-            <td>{{ day.mms_20 }}</td>
-            <td>{{ day.mms_50 }}</td>
-            <td>{{ day.mms_200 }}</td>
+          <th scope="row">{{ day.timestamp }}</th>
+          <td>{{ day.pair }}</td>
+          <td>{{ day.mms_20 }}</td>
+          <td>{{ day.mms_50 }}</td>
+          <td>{{ day.mms_200 }}</td>
         </tr>
         {% endfor %}
-    </tbody>
-        <tfoot>
-        <tr>
-            <th>Timestamp</th>
-            <th>Pair</th>
-            <th>sma_20</th>
-            <th>sma_50</th>
-            <th>sma_200</th>
-        </tr>
-        </tfoot>
+      </tbody>
     </table>
-</body>
-</html>
+
+{% endblock page_header %}

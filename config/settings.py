@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     # 3rd Apps
     'rest_framework',
     'django_cron',
+    'bootstrap4',
     
     # My apps
     'mms_pair',
