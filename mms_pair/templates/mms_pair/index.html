@@ -1,16 +1,31 @@
 {% extends "mms_pair/base.html" %}
 
 {% block page_header %}
+    <div class="jumbotron">
+      <h1 class="display-4">Olá, Devs e CriptoInvestidores!</h1>
+        <p class="lead">Está é uma simples home page de boas vindas. A minha, a nossa API está disponível para consultas.</p>
+      <hr class="my-4">
+      <p>No repositório do GitHub você tem acesso a documentação dela e de como fazer para acessá-la. Te vejo lá!<br> Ahh.. O filtro de cripto abaixo ainda não está funcional.</br>.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-dark btn-lg" href="https://github.com/mvr-garcia/mb_challenge" role="button">Ir para o Github</a>
+      </p>
+    </div>
+{% endblock page_header %}
+
+{% block content %}
 
     <div class="select">
-      <select class="form-control" id="locale">
-        <option value="btc">BRLBTC</option>
-        <option value="eth">BRLETH</option>
+      <select class="custom-select mr-sm-2" id="inlineFormCustomSelect">
+        <option selected>Escolha a criptomoeda..</option>
+        <option value="1">Bitcoin</option>
+        <option value="2">Ethereum</option>
       </select>
     </div>
-    <div id="toolbar" class="mt-2 col-mb-12">
-        <button class="btn btn-primary" type="submit" name="submit">Filtrar consulta</button>
-    </div>
+    <form method="GET" action="">
+        <div id="toolbar" class="mt-2 col-mb-12">
+            <button class="btn btn-primary" type="submit" name="submit">Filtrar consulta</button>
+        </div>
+    </form>
     <div class="mt-2 col-mb-12">
     </div>
     <table class="table">
@@ -36,4 +51,4 @@
       </tbody>
     </table>
 
-{% endblock page_header %}
+{% endblock content %}

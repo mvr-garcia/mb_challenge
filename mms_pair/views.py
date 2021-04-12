@@ -17,7 +17,7 @@ def index(request):
     else:
         update_coin()
 
-    pair = Coin.objects.filter(pair="BRLBTC").order_by("-timestamp")
+    pair = Coin.objects.filter(pair='BRLBTC').order_by("-timestamp")
     context = {'pair': pair}
 
     return render(request, 'mms_pair/index.html', context)

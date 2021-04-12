@@ -4,11 +4,11 @@ MMS Pair - MB Challenge
 MMS Pair is a project developed following the scope of the challenge of the Mercado Bitcoin, a Brazilian company.
 ------
 
-![Badge](https://img.shields.io/badge/MB-MMS%20Pair-blue?style=for-the-badge&logo=appveyor)
-
+![Badge](https://img.shields.io/badge/MB-MMS%20Pair-blue?style=flat-square&logo=appveyor)
+![Heroku](http://heroku-badge.herokuapp.com/?app=angularjs-crypto&style=flat)
 
 ### Challenge
-Create a service that delivers variations of simple moving averages, 20, 50 and 200 days, of the Bitcoin and Etherium currencies that are listed on the Bitcoin Market.
+Create a service that delivers variations of simple moving averages (Média Móvel Simples in portuguese, because of that I use MMS in the code), 20, 50 and 200 days, of the Bitcoin and Etherium currencies that are listed on the Bitcoin Market.
 
 **Challenge requirements - Summarized**
 
@@ -32,7 +32,7 @@ table.
 ## Screenshots
 
 - Desktop Screenshot  
-![](screenshots/1.png)  
+  
 ![](screenshots/2.png)
 - Mobile Screenshot  
 ![](screenshots/3.png)  
@@ -75,11 +75,64 @@ python manage.py runserver
 
 ## Live Demo
 
-![](screenshots/heroku.png)  
-The project is live on Heroku, to visit click on [here](https://daily-learn.herokuapp.com/).
+The project is live on Heroku, to visit click on [here](https://mms-pair.herokuapp.com/).
 
 ## API Documentation
 
+- The MMS API return the movin average in a given period for a given crypto.
+- Only GET request are 
+
+### #1 Endpoint
+The main API endpoint require 4 parameters:
+
+* Crypto: 'BRLBTC' or 'BRLETH'
+* MMS: 20, 50 ou 200
+* Start timestamp // timestamps < 365 are not accepted
+* Final timestamp
+
+URL: .../api/v1/[crypto]/mms=[mms_period]/from=[start_timestamp]&to=[final_timestamp]
+
+Request example:
+```
+http://127.0.0.1:8000/api/v1/BRLBTC/mms=50/from=1617840000&to=1618012800
+```
+Result:
+
+![](screenshots/1.png)
+
+### #2 Endpoint
+The second API endpoint require 3 parameters:
+
+* Crypto: 'BRLBTC' or 'BRLETH'
+* MMS: 20, 50 ou 200
+* Start timestamp // timestamps < 365 are not accepted
+Obs: Final timestamp is not mandatory, in which case it considers the last day.
+
+URL: .../api/v1/[crypto]/mms=[mms_period]/from=[start_timestamp]&to=[final_timestamp]
+
+Request example:
+```
+http://127.0.0.1:8000/api/v1/BRLBTC/mms=50/from=1617840000
+```
+Result:
+
+![](screenshots/2.png)
+
+### #3 Endpoint
+The third API endpoint require 3 parameters:
+
+* Crypto: 'BRLBTC' or 'BRLETH'
+* ~~MMS: 20, 50 ou 200~~ // API will return all 3 mms
+* Start timestamp // timestamps < 365 are not accepted
+* Final timestamp // now is mandatory
+
+URL: .../api/v1/[crypto]/mms/from=[start_timestamp]
+
+Request example:
+```
+http://127.0.0.1:8000/api/v1/BRLBTC/mms/from=1617840000&to=1618012800
+```
+![](screenshots/3.png)
 
 ## License
 
