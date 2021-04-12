@@ -1,11 +1,10 @@
 MMS Pair - MB Challenge
 ======
 
-MMS Pair is a project developed following the scope of the challenge of the Mercado Bitcoin.
+MMS Pair is a project developed following the scope of the challenge of the Mercado Bitcoin, a Brazilian company.
 ------
 
 ![Badge](https://img.shields.io/badge/MB-MMS%20Pair-blue?style=for-the-badge&logo=appveyor)
-![Badge](https://img.shields.io/badge/build-passing-brightgreen?style=for-the-badge&logo=appveyor)
 
 
 ### Challenge
@@ -28,9 +27,8 @@ table.
 * To create and schedule jobs, [Django-cron](https://django-cron.readthedocs.io/en/latest/installation.html) was applied to the project.
 * HTML was used to create the layouts templates.
 * CSS and [Bootstrap](https://getbootstrap.com/) were used for the basic styling of the navbar, table, forms, and other components.
-* The multiple application languages were managed with the feature of [internationalization and localization](https://docs.djangoproject.com/en/3.0/topics/i18n/) of Django.
 * Finally, [Heroku](www.heroku.com) was used to deploy the project.
-------
+
 ## Screenshots
 
 - Desktop Screenshot  
@@ -39,7 +37,7 @@ table.
 - Mobile Screenshot  
 ![](screenshots/3.png)  
 ![](screenshots/4.png)
-------
+
 ## Development 
 
 ```shell
@@ -71,22 +69,22 @@ python manage.py checkdb
 # 7. Run django-admin commando for schedule jobs
 python manage.py runcrons
 
-# 5. Run the server
+# 8. Run the server
 python manage.py runserver
 ```
-------
+
 ## Live Demo
 
 ![](screenshots/heroku.png)  
 The project is live on Heroku, to visit click on [here](https://daily-learn.herokuapp.com/).
-------
+
 ## API Documentation
 
-------
+
 ## License
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-red.svg)](https://opensource.org/licenses/MIT)
-------
+
 ## Authors
 Marcos Garcia   
 e-mail: mvrgarcia05@gmail.com
