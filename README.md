@@ -29,15 +29,6 @@ table.
 * CSS and [Bootstrap](https://getbootstrap.com/) were used for the basic styling of the navbar, table, forms, and other components.
 * Finally, [Heroku](www.heroku.com) was used to deploy the project.
 
-## Screenshots
-
-- Desktop Screenshot  
-  
-![](screenshots/2.png)
-- Mobile Screenshot  
-![](screenshots/3.png)  
-![](screenshots/4.png)
-
 ## Development 
 
 ```shell
@@ -76,6 +67,10 @@ python manage.py runserver
 ## Live Demo
 
 The project is live on Heroku, to visit click on [here](https://mms-pair.herokuapp.com/).
+
+Home Page - Screenshot
+
+![](screenshots/4.png)
 
 ## API Documentation
 
@@ -133,6 +128,12 @@ Request example:
 http://127.0.0.1:8000/api/v1/BRLBTC/mms/from=1617840000&to=1618012800
 ```
 ![](screenshots/3.png)
+
+## Tests
+
+Tests are runned to confirm that the MMS calculate behave as expected.
+
+![](screenshots/test.png)
 
 ## License
 
