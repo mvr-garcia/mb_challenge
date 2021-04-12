@@ -12,11 +12,32 @@ class CoinListView(generics.ListAPIView):
 
 
 class CryptoListView(generics.ListAPIView):
-    serializer_class = serializers.CoinSerializer
+
+    def get_serializer_class(self):
+
+        # If the resquest don't pass the range, API return all 3 mms
+        if 'mms' not in self.kwargs.keys():
+            return serializers.CoinSerializer
+
+        # If the request has the mms attribute, it checks whether
+        # it is valid and passes the corresponding serializer.
+        mms = self.kwargs['mms']
+        if mms == 20:
+            return serializers.CoinMms20Serializer
+        elif mms == 50:
+            return serializers.CoinMms50Serializer
+        elif mms == 200:
+            return serializers.CoinMms200Serializer
+        # If it is an invalid mms, raise an exception.
+        raise NotAcceptable("Request range Movin average isn't allowed. Choose between 20, 50, 200 range.")
 
     def get_queryset(self):
         """This view should return a list of all the crypto in specific timestamp range."""
         pair = self.kwargs['crypto']
+
+        # Pair name validate
+        if pair.upper() not in ['BRLBTC', 'BRLETH']:
+            raise NotAcceptable("Request crypto isn't allowed. Choose between BRLBTC and BRLETH")
 
         # Checks if the request start date is less than 365 days.
         # First: Finds the 365 day timestamps.
