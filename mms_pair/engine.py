@@ -81,6 +81,34 @@ def insert_data(past, now):
                         pass
 
 
+def day_missing():
+    """The function examines the database and issues an alert
+    if any day is missing from the records of the last 365 days"""
+
+    cryptos = ['BRLBTC', 'BRLETH']
+
+    for crypto in cryptos:
+        # Organizes the timestamp from the oldest to the newest and assigns it to a variable.
+        coin = Coin.objects.filter(pair=crypto).order_by("timestamp")
+        last_date = ""
+        for k, v in enumerate(coin):
+
+            day_coin = v.timestamp
+            day_coin = datetime.date.fromtimestamp(day_coin)
+
+            # In the first loop, last day receveive current date loop less 1 day
+            if k == 0:
+                last_date = day_coin - datetime.timedelta(days=1)
+
+            # Checks database consistency
+            if day_coin != last_date + datetime.timedelta(days=1):
+                # If the date in the current loop isn't consecutive to
+                # the date in the previous loop, there is a record gap.
+                print(f"Between data {last_date} and {day_coin} in the crypto {crypto}, there are missing records.")
+
+            last_date = last_date + datetime.timedelta(days=1)
+
+
 def request_data(coin, past, now):
     """
     Receive and treats BTC/ETH Candles data from Mercado Bitcoin Candles API
