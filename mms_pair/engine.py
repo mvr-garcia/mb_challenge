@@ -91,7 +91,9 @@ def day_missing():
         # Organizes the timestamp from the oldest to the newest and assigns it to a variable.
         coin = Coin.objects.filter(pair=crypto).order_by("timestamp")
         last_date = ""
-        for k, v in enumerate(coin):
+
+        # Slice the coin to iterate over the past 365 days
+        for k, v in enumerate(coin[len(coin)-365:]):
 
             day_coin = v.timestamp
             day_coin = datetime.date.fromtimestamp(day_coin)
