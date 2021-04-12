@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # 3rd Apps
     'rest_framework',
+    'django_cron',
     
     # My apps
     'mms_pair',
@@ -129,3 +130,8 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Schedule cronjobs
+CRON_CLASSES = [
+    "mms_pair.cron.MyCronJob",
+]
